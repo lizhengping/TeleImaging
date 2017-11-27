@@ -80,6 +80,7 @@ if __name__ == '__main__':
 
     #state= cam1.tele1.get_Direction_Precise_uRad() #oringnalS
     #state=[217214.07640958784, -1887.8899296219522]
+    #
     state=[5631595.883441811, -17640.030046628286]
     print(state)
     time.sleep(1)
