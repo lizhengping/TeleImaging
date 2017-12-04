@@ -27,7 +27,7 @@ class Tele:
         return result
 
     def get_Direction_Normal_uRad(self):
-        return  self.get_Direction_Normal()/360*2*math.pi*1000000
+        return  [ x/360*2*math.pi*1000000 for x in self.get_Direction_Normal()]
 
     def get_Direction_Precise(self):
         self.seri.Send("z")

@@ -5,11 +5,13 @@ from PIL import Image,ImageGrab
 # import time
 
 class camera:
-    def __init__(self, com='COM2'):
-        self.tele1 = Tele(com)
+    def __init__(self, com0='COM2',com1='COM9'):
+        self.tele1 = Tele(com0)
         self.state_deg = self.tele1.get_Direction_Precise()
         self.state_urad = self.tele1.get_Direction_Precise_uRad()
         self.running = True
+        self.subPictureSignal=TeleSerial(com1)
+
 
     def takePhoto(self,xNum, yNum,step_urad, photoTime,precision_urad=5):
         precision_deg=precision_urad/5   #in deg
@@ -24,8 +26,8 @@ class camera:
                 self.tele1.point_At_uRad_Precise(xT,yT)
                 #im = ImageGrab.grab()
                 #im.save("1.png")
-                print('NO.: ',i,' done')
-                subPictureSignal.Send("GO")
+                print('NO.: ',i+1,' done')
+                self.subPictureSignal.Send("GO")
                 print(self.tele1.get_Direction_Precise_uRad())
                 time.sleep(photoTime)
 
@@ -33,7 +35,7 @@ class camera:
         print(self.tele1.get_Direction_Precise_uRad())
 
     def staticPhoto(self,photoT):
-        subPictureSignal.Send("GO")
+        self.subPictureSignal.Send("GO")
         time.sleep(photoT)
 
 
@@ -76,11 +78,10 @@ def stopFun():
 if __name__ == '__main__':
 
     cam1 = camera('COM7')                #望眼镜串口
-    subPictureSignal=TeleSerial("COM9")  #pi无线蓝牙串口
+    #pi无线蓝牙串口
 
     #state= cam1.tele1.get_Direction_Precise_uRad() #oringnalS
     #state=[217214.07640958784, -1887.8899296219522]
-    #
     state=[5631595.883441811, -17640.030046628286]
     print(state)
     time.sleep(1)
